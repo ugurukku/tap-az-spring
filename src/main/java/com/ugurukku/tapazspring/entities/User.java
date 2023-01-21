@@ -2,6 +2,7 @@ package com.ugurukku.tapazspring.entities;
 
 
 
+
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -18,6 +19,8 @@ public class User {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
+    private String username;
+
     private String email;
 
     private String password;
@@ -25,12 +28,15 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password) {
+    public User(String username,String email, String password) {
         this.email = email;
         this.password = password;
+        this.username = username;
     }
 
     public String getId(){return id;}
+    public void setUsername(String username){this.username = username;}
+    public String getUsername(){return username;}
 
     public String getEmail() {
         return email;
