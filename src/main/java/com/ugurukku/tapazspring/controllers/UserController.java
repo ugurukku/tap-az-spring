@@ -1,7 +1,8 @@
 package com.ugurukku.tapazspring.controllers;
 
+import com.ugurukku.tapazspring.dto.CreateUserRequest;
 import com.ugurukku.tapazspring.entities.User;
-import com.ugurukku.tapazspring.repositories.UserRepository;
+import com.ugurukku.tapazspring.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,30 +11,30 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserRepository repository;
+    private final UserService service;
 
-    public UserController(UserRepository repository) {
-        this.repository = repository;
+    public UserController(UserService service) {
+        this.service = service;
     }
 
     @GetMapping
     public List<User> getAll(){
-        return repository.findAll();
+        return service.getAll();
     }
 
     @GetMapping("/:id")
     public User getUser(@RequestParam(name = "id") String id){
-        return repository.findById(id).get();
+        return service.getUser(id);
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user){
-        return repository.save(user);
+    public User addUser(@RequestBody CreateUserRequest userRequest){
+        return service.addUser(userRequest);
     }
 
     @GetMapping("/count")
-    public Integer getCount(){
-        return (int)repository.count();
+    public Long getCount(){
+        return service.getCount();
     }
 
 }
