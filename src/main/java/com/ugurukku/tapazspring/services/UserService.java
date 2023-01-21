@@ -1,7 +1,8 @@
 package com.ugurukku.tapazspring.services;
 
-import com.ugurukku.tapazspring.dto.CreateUserRequest;
-import com.ugurukku.tapazspring.dto.UserMapper;
+import com.ugurukku.tapazspring.dto.user.UpdateUserRequest;
+import com.ugurukku.tapazspring.dto.user.CreateUserRequest;
+import com.ugurukku.tapazspring.dto.user.UserMapper;
 import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -24,16 +25,20 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User getUser(String id){
+    public User getUserById(String id){
         return repository.findById(id).orElse(new User());
+    }
+
+    public Long getCount(){
+        return repository.count();
     }
 
     public User addUser(CreateUserRequest userRequest){
         return repository.save(userMapper.toUser(userRequest));
     }
 
-    public Long getCount(){
-        return repository.count();
+    public User updateUser(String id, UpdateUserRequest userRequest){
+
     }
 
 }

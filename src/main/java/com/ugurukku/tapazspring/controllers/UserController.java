@@ -1,6 +1,6 @@
 package com.ugurukku.tapazspring.controllers;
 
-import com.ugurukku.tapazspring.dto.CreateUserRequest;
+import com.ugurukku.tapazspring.dto.user.CreateUserRequest;
 import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.services.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("/:id")
     public User getUser(@RequestParam(name = "id") String id){
-        return service.getUser(id);
+        return service.getUserById(id);
     }
 
     @PostMapping

@@ -1,4 +1,4 @@
-package com.ugurukku.tapazspring.dto;
+package com.ugurukku.tapazspring.dto.user;
 
 public record CreateUserRequest(String email,String password) {
 
