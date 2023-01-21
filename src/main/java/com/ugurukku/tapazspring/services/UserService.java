@@ -21,24 +21,33 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public List<User> getAll(){
+    public List<User> getAll() {
         return repository.findAll();
     }
 
-    public User getUserById(String id){
+    public User getUserById(String id) {
         return repository.findById(id).orElse(new User());
     }
 
-    public Long getCount(){
+    public Long getCount() {
         return repository.count();
     }
 
-    public User addUser(CreateUserRequest userRequest){
+    public User addUser(CreateUserRequest userRequest) {
         return repository.save(userMapper.toUser(userRequest));
     }
 
-    public User updateUser(String id, UpdateUserRequest userRequest){
+    public void saveProfileImage(String id, byte[] image){
+        User user = getUserById(id);
+        user.setImage(image);
+    }
 
+    public void updateUser(String id, UpdateUserRequest userRequest) {
+        User user = getUserById(id);
+        user.setUsername(userRequest.username());
+        user.setPassword(userRequest.password() != null ? userRequest.password() : user.getPassword());
+
+        repository.save(user);
     }
 
 }

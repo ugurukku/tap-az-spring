@@ -6,6 +6,7 @@ package com.ugurukku.tapazspring.entities;
 import org.hibernate.annotations.GenericGenerator;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,26 +20,37 @@ public class User {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    private String profileLink;
-
+    @Column(name = "username")
     private String username;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "image", unique = false, length = 100000)
+    private byte[] image;
 
     public User() {
     }
 
-    public User(String username,String email, String password) {
+    public User(String username,String email, String password,byte[] image) {
         this.email = email;
         this.password = password;
         this.username = username;
+        this.image = image;
     }
 
     public String getId(){return id;}
-    public void setUsername(String username){this.username = username;}
+
+    public byte[] getImage(){return image;}
+
+    public void setImage(byte[] image){this.image = image;}
+
     public String getUsername(){return username;}
+
+    public void setUsername(String username){this.username = username;}
 
     public String getEmail() {
         return email;
