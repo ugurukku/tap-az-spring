@@ -19,15 +19,25 @@ public class Product {
     @Column(name = "description",length = 2000)
     private String description;
 
+    @Column(name = "image_link")
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @Column(name = "image_link")
-    private String image;
 
+    public Product(String title, BigDecimal price, String description, Category category, String image) {
+        this.title = title;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+        this.image = image;
+    }
 
+    public Product() {
+
+    }
 
     public Long getId() {
         return id;

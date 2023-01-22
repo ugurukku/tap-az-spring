@@ -1,25 +1,17 @@
 package com.ugurukku.tapazspring.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
-public class Category {
+public class City {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",unique = true,nullable = false)
+    @Column(name = "name")
     private String name;
-
-    public Category(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Category() {
-
-    }
 
     public Long getId() {
         return id;
@@ -29,9 +21,17 @@ public class Category {
         return name;
     }
 
+    public City(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public City() {
+    }
+
     @Override
     public String toString() {
-        return "Category{" +
+        return "City{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
