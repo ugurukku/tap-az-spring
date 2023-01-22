@@ -1,33 +1,22 @@
-package com.ugurukku.tapazspring.entities;
+package com.ugurukku.tapazspring.dto.product;
 
-import javax.persistence.*;
+
 import java.math.BigDecimal;
 
-@Entity(name = "products")
-public class Product {
+public class ProductFromConsumer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "description",length = 2000)
     private String description;
 
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    private String category;
 
-    @Column(name = "image_link")
     private String image;
-
-
 
     public Long getId() {
         return id;
@@ -45,7 +34,7 @@ public class Product {
         return description;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -55,7 +44,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "ProductFromConsumer{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", price=" + price +
