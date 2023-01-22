@@ -1,13 +1,12 @@
 package com.ugurukku.tapazspring.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class City {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -21,7 +20,7 @@ public class City {
         return name;
     }
 
-    public City(Long id, String name) {
+    public City(final Long id,final String name) {
         this.id = id;
         this.name = name;
     }
