@@ -16,7 +16,7 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "description")
+    @Column(name = "description",length = 2000)
     private String description;
 
     @Column(name = "category")
