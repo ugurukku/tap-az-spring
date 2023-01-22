@@ -1,7 +1,12 @@
 package com.ugurukku.tapazspring.controllers;
 
+import com.ugurukku.tapazspring.dto.user.CreateUserRequest;
+import com.ugurukku.tapazspring.dto.user.UpdateUserRequest;
+import com.ugurukku.tapazspring.dto.user.UserDto;
 import com.ugurukku.tapazspring.entities.User;
-import com.ugurukku.tapazspring.repositories.UserRepository;
+import com.ugurukku.tapazspring.services.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,30 +15,39 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserRepository repository;
+    private final UserService service;
 
-    public UserController(UserRepository repository) {
-        this.repository = repository;
-    }
-
-    @GetMapping
-    public List<User> getAll(){
-        return repository.findAll();
-    }
-
-    @GetMapping("/:id")
-    public User getUser(@RequestParam(name = "id") String id){
-        return repository.findById(id).get();
-    }
-
-    @PostMapping
-    public User addUser(@RequestBody User user){
-        return repository.save(user);
+    public UserController(UserService service) {
+        this.service = service;
     }
 
     @GetMapping("/count")
-    public Integer getCount(){
-        return (int)repository.count();
+    public Long getCount() {
+        return service.getCount();
     }
+
+    @GetMapping
+    public ResponseEntity<List<UserDto>> getAll() {
+        return ResponseEntity.ok(service.getAll());
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity<UserDto> getUser(@RequestParam(name = "id") String id) {
+        return ResponseEntity.ok(service.getUserById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDto> addUser(@RequestBody CreateUserRequest userRequest) {
+        return ResponseEntity
+                .ok(service
+                        .addUser(userRequest));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateUser(@PathVariable("id") String id, @RequestBody UpdateUserRequest updateUserRequest){
+        service.updateUser(id,updateUserRequest);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
 
 }
