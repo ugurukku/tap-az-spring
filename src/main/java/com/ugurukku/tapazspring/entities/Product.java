@@ -2,6 +2,7 @@ package com.ugurukku.tapazspring.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -29,7 +30,7 @@ public class Product {
     private City city;
 
     @Column(name = "added_date")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -42,7 +43,7 @@ public class Product {
         this.category = category;
         this.image = image;
         this.city = city;
-        this.date = LocalDateTime.now();
+        this.date = LocalDate.now();
     }
 
     public Product() {
@@ -77,7 +78,7 @@ public class Product {
         return city;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

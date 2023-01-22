@@ -110,7 +110,6 @@ public class GeneralConsumer {
         );
 
         cityRepository.saveAll(cities);
-        System.out.println(cityRepository.findAll());
     }
 
 
