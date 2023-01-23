@@ -1,11 +1,10 @@
 package com.ugurukku.tapazspring.controllers;
 
+import com.ugurukku.tapazspring.dto.product.ProductRequest;
 import com.ugurukku.tapazspring.entities.Product;
 import com.ugurukku.tapazspring.services.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,8 +20,22 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> getAll() {
-
         return ResponseEntity.ok(productService.getAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getById(@PathVariable(name = "id") Long id){
+        return ResponseEntity.ok(productService.getProductById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<Product> addProduct(@RequestBody ProductRequest productRequest) {
+        return ResponseEntity.ok(productService.addProduct(productRequest));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable(name = "id") Long id){
+        return ResponseEntity.ok(productService.removeProductById(id));
     }
 
 }

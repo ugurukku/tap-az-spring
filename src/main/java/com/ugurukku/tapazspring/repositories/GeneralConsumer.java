@@ -1,5 +1,6 @@
 package com.ugurukku.tapazspring.repositories;
 
+import com.ugurukku.tapazspring.dto.product.ProductFromConsumer;
 import com.ugurukku.tapazspring.entities.Category;
 import com.ugurukku.tapazspring.entities.City;
 import com.ugurukku.tapazspring.entities.Product;
@@ -115,7 +116,7 @@ public class GeneralConsumer {
 
 
     @Bean
-    public void consume() {
+    public void initializeProducts() {
         final String URL = "https://fakestoreapi.com/products";
 
         RestTemplate restTemplate = new RestTemplate();

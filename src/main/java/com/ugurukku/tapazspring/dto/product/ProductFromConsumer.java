@@ -1,4 +1,4 @@
-package com.ugurukku.tapazspring.repositories;
+package com.ugurukku.tapazspring.dto.product;
 
 
 import java.math.BigDecimal;

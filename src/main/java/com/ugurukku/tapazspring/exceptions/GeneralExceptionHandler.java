@@ -1,5 +1,6 @@
 package com.ugurukku.tapazspring.exceptions;
 
+import com.ugurukku.tapazspring.exceptions.product.ProductNotFoundException;
 import com.ugurukku.tapazspring.exceptions.user.UserAlreadyExistsException;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -49,5 +50,9 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<?> productNotFoundExceptionHandler(ProductNotFoundException exception){
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
+    }
     }
 

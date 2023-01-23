@@ -1,6 +1,9 @@
 package com.ugurukku.tapazspring.services;
 
+import com.ugurukku.tapazspring.dto.product.ProductMapper;
+import com.ugurukku.tapazspring.dto.product.ProductRequest;
 import com.ugurukku.tapazspring.entities.Product;
+import com.ugurukku.tapazspring.exceptions.product.ProductNotFoundException;
 import com.ugurukku.tapazspring.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +14,11 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    private final ProductMapper productMapper;
+
+    public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
+        this.productMapper = productMapper;
     }
 
     public List<Product> getAll() {
@@ -20,4 +26,21 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public Product getProductById(Long id) {
+        return productRepository
+                .findById(id)
+                .orElseThrow(() -> new ProductNotFoundException(String.format("Product with id:%s not found!", id)));
+    }
+
+    public String removeProductById(Long id){
+
+        String title = getProductById(id).getTitle();
+        productRepository.deleteById(id);
+
+        return title + " successfully deleted.";
+    }
+
+    public Product addProduct(ProductRequest productRequest) {
+       return productRepository.save(productMapper.toProduct(productRequest));
+    }
 }

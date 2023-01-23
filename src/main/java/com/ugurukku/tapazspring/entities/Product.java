@@ -1,17 +1,17 @@
 package com.ugurukku.tapazspring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity(name = "products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;//
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -25,15 +25,16 @@ public class Product {
     @Column(name = "image_link")
     private String image;
 
+    @Column(name = "added_date")
+    private LocalDate date;//
+
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
-    @Column(name = "added_date")
-    private LocalDate date;
-
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties(value = "")
     private Category category;
 
     public Product(String title, BigDecimal price, String description, Category category, String image,City city) {
