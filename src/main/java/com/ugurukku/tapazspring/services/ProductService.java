@@ -1,5 +1,6 @@
 package com.ugurukku.tapazspring.services;
 
+import com.ugurukku.tapazspring.dto.product.ProductAllResponse;
 import com.ugurukku.tapazspring.dto.product.ProductMapper;
 import com.ugurukku.tapazspring.dto.product.ProductRequest;
 import com.ugurukku.tapazspring.entities.Product;
@@ -21,20 +22,20 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
-    public List<Product> getAll() {
+    public List<ProductAllResponse> getAll() {
 
-        return productRepository.findAll();
+        return productRepository.findAll().stream().map(productMapper::toProductAllResponse).toList();
     }
 
-    public Product getProductById(Long id) {
-        return productRepository
+    public ProductAllResponse getProductById(Long id) {
+        return productMapper.toProductAllResponse(productRepository
                 .findById(id)
-                .orElseThrow(() -> new ProductNotFoundException(String.format("Product with id:%s not found!", id)));
+                .orElseThrow(() -> new ProductNotFoundException(String.format("Product with id:%s not found!", id))));
     }
 
     public String removeProductById(Long id){
 
-        String title = getProductById(id).getTitle();
+        String title = getProductById(id).title();
         productRepository.deleteById(id);
 
         return title + " successfully deleted.";
@@ -42,5 +43,9 @@ public class ProductService {
 
     public Product addProduct(ProductRequest productRequest) {
        return productRepository.save(productMapper.toProduct(productRequest));
+    }
+
+    public void saveAll(List<Product> products) {
+        productRepository.saveAll(products);
     }
 }

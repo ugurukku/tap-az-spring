@@ -1,22 +1,20 @@
 package com.ugurukku.tapazspring.dto.product;
 
 
-import com.ugurukku.tapazspring.entities.Category;
-import com.ugurukku.tapazspring.entities.City;
-
 import java.math.BigDecimal;
 
-public record ProductRequest(String title,
-                             BigDecimal price,
+public record ProductRequest(
+        String title,
 
-                             String description,
+        BigDecimal price,
 
-                             String image,
+        String description,
 
-                             Category category,
+        String image,
 
-                             City city) {
+        CategoryRequest category,
 
+        CityRequest city) {
 
 
 }

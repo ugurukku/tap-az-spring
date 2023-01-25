@@ -1,5 +1,6 @@
 package com.ugurukku.tapazspring.controllers;
 
+import com.ugurukku.tapazspring.dto.product.ProductAllResponse;
 import com.ugurukku.tapazspring.dto.product.ProductRequest;
 import com.ugurukku.tapazspring.entities.Product;
 import com.ugurukku.tapazspring.services.ProductService;
@@ -19,12 +20,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAll() {
+    public ResponseEntity<List<ProductAllResponse>> getAll() {
         return ResponseEntity.ok(productService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getById(@PathVariable(name = "id") Long id){
+    public ResponseEntity<ProductAllResponse> getById(@PathVariable(name = "id") Long id){
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
