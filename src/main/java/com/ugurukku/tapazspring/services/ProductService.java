@@ -27,15 +27,15 @@ public class ProductService {
         return productRepository.findAll().stream().map(productMapper::toProductAllResponse).toList();
     }
 
-    public Product getProductById(Long id) {
-        return productRepository
+    public ProductAllResponse getProductById(Long id) {
+        return productMapper.toProductAllResponse(productRepository
                 .findById(id)
-                .orElseThrow(() -> new ProductNotFoundException(String.format("Product with id:%s not found!", id)));
+                .orElseThrow(() -> new ProductNotFoundException(String.format("Product with id:%s not found!", id))));
     }
 
     public String removeProductById(Long id){
 
-        String title = getProductById(id).getTitle();
+        String title = getProductById(id).title();
         productRepository.deleteById(id);
 
         return title + " successfully deleted.";
@@ -43,5 +43,9 @@ public class ProductService {
 
     public Product addProduct(ProductRequest productRequest) {
        return productRepository.save(productMapper.toProduct(productRequest));
+    }
+
+    public void saveAll(List<Product> products) {
+        productRepository.saveAll(products);
     }
 }

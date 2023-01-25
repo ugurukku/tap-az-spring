@@ -4,6 +4,9 @@ import com.ugurukku.tapazspring.dto.product.ProductFromConsumer;
 import com.ugurukku.tapazspring.entities.Category;
 import com.ugurukku.tapazspring.entities.City;
 import com.ugurukku.tapazspring.entities.Product;
+import com.ugurukku.tapazspring.services.CategoryService;
+import com.ugurukku.tapazspring.services.CityService;
+import com.ugurukku.tapazspring.services.ProductService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -14,18 +17,17 @@ import java.util.stream.Collectors;
 @Configuration
 public class GeneralConsumer {
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
-    private final CityRepository cityRepository;
+    private final CityService cityService;
 
-    public GeneralConsumer(CategoryRepository categoryRepository, ProductRepository productRepository, CityRepository cityRepository) {
-        this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
-        this.cityRepository = cityRepository;
+    public GeneralConsumer(CategoryService categoryService, ProductService productService, CityService cityService) {
+        this.categoryService = categoryService;
+        this.productService = productService;
+        this.cityService = cityService;
     }
-
 
 
     @Bean
@@ -110,7 +112,7 @@ public class GeneralConsumer {
                 new City(null, "Zərdab")
         );
 
-        cityRepository.saveAll(cities);
+        cityService.saveAll(cities);
     }
 
 
@@ -133,7 +135,7 @@ public class GeneralConsumer {
                 .map(name -> new Category(null, name))
                 .toList();
 
-        categoryRepository.saveAll(categories);
+        categoryService.saveAll(categories);
 
         //Products
         List<Product> productList = new ArrayList<>();
@@ -148,13 +150,13 @@ public class GeneralConsumer {
                                     product.getPrice(),
                                     product.getDescription(),
                                     new Category(
-                                            categoryRepository.findCategoryByName(product.getCategory()).get().getId(),
+                                            categoryService.findCategoryByName(product.getCategory()).getId(),
                                             null),
                                     product.getImage(),
                                     new City(random.nextLong(76)+1, null)));
         }
 
-        productRepository.saveAll(productList);
+        productService.saveAll(productList);
 
     }
 
