@@ -1,5 +1,7 @@
 package com.ugurukku.tapazspring.dto.product;
 
+import com.ugurukku.tapazspring.entities.Category;
+import com.ugurukku.tapazspring.entities.City;
 import com.ugurukku.tapazspring.entities.Product;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -10,5 +12,11 @@ import org.springframework.stereotype.Component;
 public interface ProductMapper {
 
     Product toProduct(ProductRequest from);
+
+    ProductAllResponse toProductAllResponse(Product from);
+
+    CategoryDto ToCategoryDto(Category from);
+
+    CityDto toCityDto(City from);
 
 }

@@ -1,5 +1,6 @@
 package com.ugurukku.tapazspring.services;
 
+import com.ugurukku.tapazspring.dto.product.ProductAllResponse;
 import com.ugurukku.tapazspring.dto.product.ProductMapper;
 import com.ugurukku.tapazspring.dto.product.ProductRequest;
 import com.ugurukku.tapazspring.entities.Product;
@@ -21,9 +22,9 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
-    public List<Product> getAll() {
+    public List<ProductAllResponse> getAll() {
 
-        return productRepository.findAll();
+        return productRepository.findAll().stream().map(productMapper::toProductAllResponse).toList();
     }
 
     public Product getProductById(Long id) {
