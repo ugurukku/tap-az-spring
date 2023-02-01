@@ -7,6 +7,7 @@ import com.ugurukku.tapazspring.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -31,8 +32,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> addProduct(@RequestBody ProductRequest productRequest) {
-        return ResponseEntity.ok(productService.addProduct(productRequest));
+    public ResponseEntity<Void> addProduct(@RequestBody ProductRequest productRequest) throws IOException {
+        productService.addProduct(productRequest);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

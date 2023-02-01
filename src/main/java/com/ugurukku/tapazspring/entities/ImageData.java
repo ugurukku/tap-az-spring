@@ -17,4 +17,29 @@ public class ImageData {
     @Lob
     @Column(name = "imagedata", length = 1000)
     private byte[] imageData;
+
+    public ImageData() {
+    }
+
+    public ImageData(Long productId, String type, byte[] imageData) {
+        this.productId = productId;
+        this.type = type;
+        this.imageData = imageData;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
 }

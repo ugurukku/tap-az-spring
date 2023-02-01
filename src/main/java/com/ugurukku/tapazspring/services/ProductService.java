@@ -8,6 +8,7 @@ import com.ugurukku.tapazspring.exceptions.product.ProductNotFoundException;
 import com.ugurukku.tapazspring.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -15,10 +16,13 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final ImageDataService imageDataService;
+
     private final ProductMapper productMapper;
 
-    public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductService(ProductRepository productRepository, ImageDataService imageDataService, ProductMapper productMapper) {
         this.productRepository = productRepository;
+        this.imageDataService = imageDataService;
         this.productMapper = productMapper;
     }
 
@@ -41,8 +45,10 @@ public class ProductService {
         return title + " successfully deleted.";
     }
 
-    public Product addProduct(ProductRequest productRequest) {
-       return productRepository.save(productMapper.toProduct(productRequest));
+    public void addProduct(ProductRequest productRequest) throws IOException {
+       Product product = productRepository.save(productMapper.toProduct(productRequest));
+       imageDataService.uploadImage(product.getId(),productRequest.file());
+
     }
 
     public void saveAll(List<Product> products) {

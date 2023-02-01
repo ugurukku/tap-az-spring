@@ -12,8 +12,6 @@ public record ProductRequest(
 
         String description,
 
-        String image,
-
         CategoryRequest category,
 
         CityRequest city,
