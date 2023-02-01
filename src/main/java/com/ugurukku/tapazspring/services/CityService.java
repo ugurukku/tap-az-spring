@@ -19,4 +19,8 @@ public class CityService {
         repository.saveAll(cities);
     }
 
+    public List<City> getAll(){
+        return repository.findAll();
+    }
+
 }
