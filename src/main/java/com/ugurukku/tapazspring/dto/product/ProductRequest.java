@@ -1,6 +1,8 @@
 package com.ugurukku.tapazspring.dto.product;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.math.BigDecimal;
 
 public record ProductRequest(
@@ -14,7 +16,9 @@ public record ProductRequest(
 
         CategoryRequest category,
 
-        CityRequest city) {
+        CityRequest city,
+
+        MultipartFile file) {
 
 
 }
