@@ -3,11 +3,15 @@ package com.ugurukku.tapazspring.services;
 import com.ugurukku.tapazspring.dto.product.ProductAllResponse;
 import com.ugurukku.tapazspring.dto.product.ProductMapper;
 import com.ugurukku.tapazspring.dto.product.ProductRequest;
+import com.ugurukku.tapazspring.entities.Category;
+import com.ugurukku.tapazspring.entities.City;
 import com.ugurukku.tapazspring.entities.Product;
 import com.ugurukku.tapazspring.exceptions.product.ProductNotFoundException;
 import com.ugurukku.tapazspring.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -15,10 +19,13 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final ImageDataService imageDataService;
+
     private final ProductMapper productMapper;
 
-    public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductService(ProductRepository productRepository, ImageDataService imageDataService, ProductMapper productMapper) {
         this.productRepository = productRepository;
+        this.imageDataService = imageDataService;
         this.productMapper = productMapper;
     }
 
@@ -33,7 +40,7 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(String.format("Product with id:%s not found!", id))));
     }
 
-    public String removeProductById(Long id){
+    public String removeProductById(Long id) {
 
         String title = getProductById(id).title();
         productRepository.deleteById(id);
@@ -41,8 +48,15 @@ public class ProductService {
         return title + " successfully deleted.";
     }
 
-    public Product addProduct(ProductRequest productRequest) {
-       return productRepository.save(productMapper.toProduct(productRequest));
+    public Long addProduct(ProductRequest productRequest) throws IOException {
+       return productRepository.save(new Product(
+                productRequest.title(),
+                productRequest.price(), productRequest.description(),
+                new Category(productRequest.category().id()),
+                new City(productRequest.city().id()),
+                "random"
+        )).getId();
+
     }
 
     public void saveAll(List<Product> products) {

@@ -25,4 +25,8 @@ public class CategoryService {
                 .findCategoryByName(categoryName)
                 .orElseThrow(() -> new CategoryNotFoundException("Category not found"+categoryName));
     }
+
+    public List<Category> getAll(){
+        return repository.findAll();
+    }
 }
