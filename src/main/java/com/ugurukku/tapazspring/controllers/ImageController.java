@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/images")
@@ -17,6 +20,12 @@ public class ImageController {
 
     public ImageController(ImageDataService service) {
         this.service = service;
+    }
+
+    @PostMapping("/{productId}")
+    public ResponseEntity<Void> saveImage(@PathVariable("productId") Long id, MultipartFile image) throws IOException {
+        service.uploadImage(id,image);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/info/{productId}")

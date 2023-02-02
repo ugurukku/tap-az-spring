@@ -48,15 +48,14 @@ public class ProductService {
         return title + " successfully deleted.";
     }
 
-    public void addProduct(ProductRequest productRequest) throws IOException {
-        Product product = productRepository.save(new Product(
+    public Long addProduct(ProductRequest productRequest) throws IOException {
+       return productRepository.save(new Product(
                 productRequest.title(),
                 productRequest.price(), productRequest.description(),
                 new Category(productRequest.category().id()),
                 new City(productRequest.city().id()),
                 "random"
-        ));
-//        imageDataService.uploadImage(product.getId(), productRequest.image());
+        )).getId();
 
     }
 
