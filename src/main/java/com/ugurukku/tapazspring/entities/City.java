@@ -20,8 +20,11 @@ public class City {
         return name;
     }
 
-    public City(final Long id,final String name) {
+    public City(final Long id) {
         this.id = id;
+    }
+
+    public City(String name) {
         this.name = name;
     }
 

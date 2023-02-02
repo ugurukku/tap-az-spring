@@ -3,10 +3,13 @@ package com.ugurukku.tapazspring.services;
 import com.ugurukku.tapazspring.dto.product.ProductAllResponse;
 import com.ugurukku.tapazspring.dto.product.ProductMapper;
 import com.ugurukku.tapazspring.dto.product.ProductRequest;
+import com.ugurukku.tapazspring.entities.Category;
+import com.ugurukku.tapazspring.entities.City;
 import com.ugurukku.tapazspring.entities.Product;
 import com.ugurukku.tapazspring.exceptions.product.ProductNotFoundException;
 import com.ugurukku.tapazspring.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,7 +40,7 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(String.format("Product with id:%s not found!", id))));
     }
 
-    public String removeProductById(Long id){
+    public String removeProductById(Long id) {
 
         String title = getProductById(id).title();
         productRepository.deleteById(id);
@@ -46,8 +49,14 @@ public class ProductService {
     }
 
     public void addProduct(ProductRequest productRequest) throws IOException {
-       Product product = productRepository.save(productMapper.toProduct(productRequest));
-       imageDataService.uploadImage(product.getId(),productRequest.file());
+        Product product = productRepository.save(new Product(
+                productRequest.title(),
+                productRequest.price(), productRequest.description(),
+                new Category(productRequest.category().id()),
+                new City(productRequest.city().id()),
+                "random"
+        ));
+//        imageDataService.uploadImage(product.getId(), productRequest.image());
 
     }
 

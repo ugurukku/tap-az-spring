@@ -13,7 +13,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;//
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title")
     private String title;
 
     @Column(name = "price")
@@ -34,10 +34,9 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonIgnoreProperties(value = "")
     private Category category;
 
-    public Product(String title, BigDecimal price, String description, Category category, String image,City city) {
+    public Product(String title, BigDecimal price, String description, Category category, City city,String image) {
         this.title = title;
         this.price = price;
         this.description = description;

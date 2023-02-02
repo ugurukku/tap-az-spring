@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring",injectionStrategy = InjectionStrategy.FIELD)
 public interface ProductMapper {
 
-    Product toProduct(ProductRequest from);
-
     ProductAllResponse toProductAllResponse(Product from);
 
     CategoryDto ToCategoryDto(Category from);
