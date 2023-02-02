@@ -10,15 +10,9 @@ public record ProductAllResponse(
 
          BigDecimal price,
 
-         String description,
-
-         String image,
-
          LocalDate date,
 
-         CityDto city,
-
-         CategoryDto category) {
+         CityDto city   ) {
 
 
 
