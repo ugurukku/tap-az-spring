@@ -7,6 +7,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,8 +24,9 @@ import java.util.stream.Collectors;
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
+    @NonNull
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+            MethodArgumentNotValidException ex, @NonNull HttpHeaders headers, HttpStatus status, @NonNull WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", new Date());
@@ -40,19 +42,5 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, headers, status);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<?> userNotFoundExceptionHandler(UserNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<?> userAlreadyExistsExceptionHandler(UserAlreadyExistsException exception){
-        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<?> productNotFoundExceptionHandler(ProductNotFoundException exception){
-        return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
-    }
-    }
+}
 
