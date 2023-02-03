@@ -1,6 +1,4 @@
-package com.ugurukku.tapazspring.entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+package com.ugurukku.tapazspring.exceptions.user.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

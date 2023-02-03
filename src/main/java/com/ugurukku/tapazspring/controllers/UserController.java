@@ -3,7 +3,6 @@ package com.ugurukku.tapazspring.controllers;
 import com.ugurukku.tapazspring.dto.user.CreateUserRequest;
 import com.ugurukku.tapazspring.dto.user.UpdateUserRequest;
 import com.ugurukku.tapazspring.dto.user.UserDto;
-import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

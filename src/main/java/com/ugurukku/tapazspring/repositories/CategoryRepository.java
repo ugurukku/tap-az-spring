@@ -1,6 +1,6 @@
 package com.ugurukku.tapazspring.repositories;
 
-import com.ugurukku.tapazspring.entities.Category;
+import com.ugurukku.tapazspring.exceptions.user.entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

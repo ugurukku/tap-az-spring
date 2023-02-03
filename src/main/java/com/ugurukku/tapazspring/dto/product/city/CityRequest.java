@@ -1,4 +1,4 @@
-package com.ugurukku.tapazspring.dto.product;
+package com.ugurukku.tapazspring.dto.product.city;
 
 public record CityRequest(Long id) {
 

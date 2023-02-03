@@ -1,6 +1,6 @@
 package com.ugurukku.tapazspring.services;
 
-import com.ugurukku.tapazspring.entities.ImageData;
+import com.ugurukku.tapazspring.exceptions.user.entities.ImageData;
 import com.ugurukku.tapazspring.repositories.ImageDataRepository;
 import com.ugurukku.tapazspring.utils.ImageUtil;
 import org.springframework.stereotype.Service;

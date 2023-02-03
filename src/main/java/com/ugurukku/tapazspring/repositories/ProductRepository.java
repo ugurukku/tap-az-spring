@@ -1,6 +1,6 @@
 package com.ugurukku.tapazspring.repositories;
 
-import com.ugurukku.tapazspring.entities.Product;
+import com.ugurukku.tapazspring.exceptions.user.entities.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,6 +1,6 @@
 package com.ugurukku.tapazspring.controllers;
 
-import com.ugurukku.tapazspring.entities.Category;
+import com.ugurukku.tapazspring.exceptions.user.entities.Category;
 import com.ugurukku.tapazspring.services.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -1,7 +1,7 @@
 
 package com.ugurukku.tapazspring.controllers;
 
-import com.ugurukku.tapazspring.entities.ImageData;
+import com.ugurukku.tapazspring.exceptions.user.entities.ImageData;
 import com.ugurukku.tapazspring.services.ImageDataService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package com.ugurukku.tapazspring.entities;
+package com.ugurukku.tapazspring.exceptions.user.entities;
 
 
 

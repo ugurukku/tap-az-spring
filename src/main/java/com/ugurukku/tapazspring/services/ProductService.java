@@ -3,13 +3,12 @@ package com.ugurukku.tapazspring.services;
 import com.ugurukku.tapazspring.dto.product.ProductAllResponse;
 import com.ugurukku.tapazspring.dto.product.ProductMapper;
 import com.ugurukku.tapazspring.dto.product.ProductRequest;
-import com.ugurukku.tapazspring.entities.Category;
-import com.ugurukku.tapazspring.entities.City;
-import com.ugurukku.tapazspring.entities.Product;
+import com.ugurukku.tapazspring.exceptions.user.entities.Category;
+import com.ugurukku.tapazspring.exceptions.user.entities.City;
+import com.ugurukku.tapazspring.exceptions.user.entities.Product;
 import com.ugurukku.tapazspring.exceptions.product.ProductNotFoundException;
 import com.ugurukku.tapazspring.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
