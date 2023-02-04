@@ -4,7 +4,7 @@ import com.ugurukku.tapazspring.dto.user.UpdateUserRequest;
 import com.ugurukku.tapazspring.dto.user.CreateUserRequest;
 import com.ugurukku.tapazspring.dto.user.UserDto;
 import com.ugurukku.tapazspring.dto.user.UserMapper;
-import com.ugurukku.tapazspring.exceptions.user.entities.User;
+import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.exceptions.user.UserAlreadyExistsException;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
 import com.ugurukku.tapazspring.repositories.UserRepository;

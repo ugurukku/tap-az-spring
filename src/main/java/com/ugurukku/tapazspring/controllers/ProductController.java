@@ -2,6 +2,7 @@ package com.ugurukku.tapazspring.controllers;
 
 import com.ugurukku.tapazspring.dto.product.ProductAllResponse;
 import com.ugurukku.tapazspring.dto.product.ProductRequest;
+import com.ugurukku.tapazspring.dto.product.ProductResponse;
 import com.ugurukku.tapazspring.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductAllResponse> getById(@PathVariable(name = "id") Long id){
+    public ResponseEntity<ProductResponse> getById(@PathVariable(name = "id") Long id){
         return ResponseEntity.ok(productService.getProductById(id));
     }
 

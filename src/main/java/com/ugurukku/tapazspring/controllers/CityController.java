@@ -1,6 +1,6 @@
 package com.ugurukku.tapazspring.controllers;
 
-import com.ugurukku.tapazspring.exceptions.user.entities.City;
+import com.ugurukku.tapazspring.entities.City;
 import com.ugurukku.tapazspring.services.CityService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

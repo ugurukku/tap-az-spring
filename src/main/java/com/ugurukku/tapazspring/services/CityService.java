@@ -1,6 +1,6 @@
 package com.ugurukku.tapazspring.services;
 
-import com.ugurukku.tapazspring.exceptions.user.entities.City;
+import com.ugurukku.tapazspring.entities.City;
 import com.ugurukku.tapazspring.repositories.CityRepository;
 import org.springframework.stereotype.Service;
 

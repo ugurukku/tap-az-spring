@@ -1,6 +1,6 @@
 package com.ugurukku.tapazspring.services;
 
-import com.ugurukku.tapazspring.exceptions.user.entities.Category;
+import com.ugurukku.tapazspring.entities.Category;
 import com.ugurukku.tapazspring.exceptions.product.CategoryNotFoundException;
 import com.ugurukku.tapazspring.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;

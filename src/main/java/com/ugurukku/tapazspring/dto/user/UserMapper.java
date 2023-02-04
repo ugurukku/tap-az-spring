@@ -1,6 +1,6 @@
 package com.ugurukku.tapazspring.dto.user;
 
-import com.ugurukku.tapazspring.exceptions.user.entities.User;
+import com.ugurukku.tapazspring.entities.User;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 
