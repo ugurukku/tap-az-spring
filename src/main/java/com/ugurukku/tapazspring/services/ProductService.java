@@ -27,8 +27,11 @@ public class ProductService {
     }
 
     public List<ProductAllResponse> getAll() {
-
         return productRepository.findAll().stream().map(productMapper::toProductAllResponse).toList();
+    }
+
+    public List<ProductAllResponse> getAllByCategoryId(Long id) {
+        return productRepository.findAllByCategory_Id(id).stream().map(productMapper::toProductAllResponse).toList();
     }
 
     public ProductResponse getProductById(Long id) {
