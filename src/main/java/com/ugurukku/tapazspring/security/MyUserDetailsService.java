@@ -3,7 +3,6 @@ package com.ugurukku.tapazspring.security;
 import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
 import com.ugurukku.tapazspring.repositories.UserRepository;
-import com.ugurukku.tapazspring.services.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,9 +23,8 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findUserByEmail(username);
 
-        User u = user.orElseThrow(() -> new UsernameNotFoundException("Username not found : " + username));
+        user.orElseThrow(() -> new UsernameNotFoundException("Username not found : " + username));
 
-        System.out.println(u);
         return user.map(MyUserDetails::new).orElseThrow(() -> new UserNotFoundException("not found"));
     }
 }
