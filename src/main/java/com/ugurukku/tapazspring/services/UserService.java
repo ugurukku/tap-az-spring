@@ -8,6 +8,8 @@ import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.exceptions.user.UserAlreadyExistsException;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
 import com.ugurukku.tapazspring.repositories.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class UserService {
 
     private final UserMapper userMapper;
 
+
     public UserService(UserRepository repository, UserMapper userMapper) {
         this.repository = repository;
         this.userMapper = userMapper;
@@ -26,6 +29,10 @@ public class UserService {
 
     public List<UserDto> getAll() {
         return userMapper.toUserDtoList(repository.findAll());
+    }
+
+    public User getUserByEmail(String email) {
+        return repository.findUserByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found for email : " + email));
     }
 
     public UserDto getUserById(String id) {
@@ -39,9 +46,10 @@ public class UserService {
     public UserDto addUser(CreateUserRequest userRequest) {
 
         if (userExistsByEmail(userRequest.email()))
-            throw new UserAlreadyExistsException(String.format("Email: %s is already taken!",userRequest.email()));
+            throw new UserAlreadyExistsException(String.format("Email: %s is already taken!", userRequest.email()));
 
         User user = userMapper.toUser(userRequest);
+
 
         return userMapper.toUserDto(repository.save(user));
     }
@@ -55,15 +63,15 @@ public class UserService {
         repository.save(user);
     }
 
-    private User findUserById(String id){
+    private User findUserById(String id) {
         return repository
                 .findById(id)
                 .orElseThrow(() ->
                         new UserNotFoundException(String
-                                .format("User with id:%s is unavailable",id)));
+                                .format("User with id:%s is unavailable", id)));
     }
 
-    private boolean userExistsByEmail(String email){
+    private boolean userExistsByEmail(String email) {
         return repository.existsByEmail(email);
     }
 
