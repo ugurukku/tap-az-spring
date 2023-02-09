@@ -3,12 +3,11 @@ package com.ugurukku.tapazspring.controllers;
 import com.ugurukku.tapazspring.entities.City;
 import com.ugurukku.tapazspring.services.CityService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/cities")
@@ -23,7 +22,7 @@ public class CityController {
     }
 
     @GetMapping
-    public ResponseEntity<List<City>> getAllCities(){
+    public ResponseEntity<List<City>> getAllCities() {
         return ResponseEntity.ok(service.getAll());
     }
 }
