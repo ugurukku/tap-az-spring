@@ -8,8 +8,7 @@ import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.exceptions.user.UserAlreadyExistsException;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
 import com.ugurukku.tapazspring.repositories.UserRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,10 +20,12 @@ public class UserService {
 
     private final UserMapper userMapper;
 
+    private final PasswordEncoder encoder;
 
-    public UserService(UserRepository repository, UserMapper userMapper) {
+    public UserService(UserRepository repository, UserMapper userMapper, PasswordEncoder encoder) {
         this.repository = repository;
         this.userMapper = userMapper;
+        this.encoder = encoder;
     }
 
     public List<UserDto> getAll() {
@@ -49,6 +50,7 @@ public class UserService {
             throw new UserAlreadyExistsException(String.format("Email: %s is already taken!", userRequest.email()));
 
         User user = userMapper.toUser(userRequest);
+        user.setPassword(encoder.encode(user.getPassword()));
 
 
         return userMapper.toUserDto(repository.save(user));
@@ -58,7 +60,7 @@ public class UserService {
     public void updateUser(String id, UpdateUserRequest userRequest) {
         User user = findUserById(id);
         user.setUsername(userRequest.username());
-        user.setPassword(userRequest.password() != null ? userRequest.password() : user.getPassword());
+        user.setPassword(userRequest.password() != null ? encoder.encode(userRequest.password()) : user.getPassword());
 
         repository.save(user);
     }
