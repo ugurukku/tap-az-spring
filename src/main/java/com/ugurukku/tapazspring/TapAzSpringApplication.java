@@ -23,7 +23,7 @@ public class TapAzSpringApplication {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/products").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/auth").allowedOrigins("http://localhost:3000");
             }
         };
     }
