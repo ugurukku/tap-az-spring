@@ -32,7 +32,7 @@ public class AuthController {
     public ResponseEntity<User> login(@RequestBody UserLoginDto userLoginDto) {
         return ResponseEntity
                 .ok(service
-                        .auth(userLoginDto));
+                        .authenticate(userLoginDto));
     }
 
 }

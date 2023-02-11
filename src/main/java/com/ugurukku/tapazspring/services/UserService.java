@@ -1,9 +1,6 @@
 package com.ugurukku.tapazspring.services;
 
-import com.ugurukku.tapazspring.dto.user.UpdateUserRequest;
-import com.ugurukku.tapazspring.dto.user.CreateUserRequest;
-import com.ugurukku.tapazspring.dto.user.UserDto;
-import com.ugurukku.tapazspring.dto.user.UserMapper;
+import com.ugurukku.tapazspring.dto.user.*;
 import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.exceptions.user.UserAlreadyExistsException;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
@@ -77,4 +74,7 @@ public class UserService {
         return repository.existsByEmail(email);
     }
 
+    public User authenticate(UserLoginDto userLoginDto) {
+        return repository.findUserByEmailAndPassword(userLoginDto.email(), encoder.encode(userLoginDto.password())).orElseThrow();
+    }
 }
