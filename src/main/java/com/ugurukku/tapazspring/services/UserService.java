@@ -57,9 +57,8 @@ public class UserService {
 
     public void updateUser(String id, UpdateUserRequest userRequest) {
         User user = findUserById(id);
-        user.setUsername(userRequest.username());
+        user.setUsername(userRequest.username() != null ? userRequest.username() : user.getUsername());
         user.setPassword(userRequest.password() != null ? encoder.encode(userRequest.password()) : user.getPassword());
-
         repository.save(user);
     }
 
@@ -76,12 +75,12 @@ public class UserService {
     }
 
     public User authenticate(UserLoginDto userLoginDto) {
+
         User user = getUserByEmail(userLoginDto.email());
 
-        System.out.println(encoder.encode(userLoginDto.password()));
-        System.out.println(user.getPassword());
+        System.out.println(encoder.matches(userLoginDto.password(),user.getPassword()));
 
-        if (!user.getPassword().equals(encoder.encode(userLoginDto.password()))){
+        if (!(encoder.matches(userLoginDto.password(), user.getPassword()))){
             throw  new AuthenticationFailedException("Email or password is incorrect");
         }
         return user;
