@@ -24,4 +24,10 @@ public class UserExceptionHandler  extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(AuthenticationFailedException.class)
+    public ResponseEntity<?> AuthenticationFailedExceptionHandler(AuthenticationFailedException exception){
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.UNAUTHORIZED);
+    }
+
+
 }

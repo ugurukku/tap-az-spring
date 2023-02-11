@@ -2,6 +2,7 @@ package com.ugurukku.tapazspring.services;
 
 import com.ugurukku.tapazspring.dto.user.*;
 import com.ugurukku.tapazspring.entities.User;
+import com.ugurukku.tapazspring.exceptions.user.AuthenticationFailedException;
 import com.ugurukku.tapazspring.exceptions.user.UserAlreadyExistsException;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
 import com.ugurukku.tapazspring.repositories.UserRepository;
@@ -75,6 +76,7 @@ public class UserService {
     }
 
     public User authenticate(UserLoginDto userLoginDto) {
-        return repository.findUserByEmailAndPassword(userLoginDto.email(), encoder.encode(userLoginDto.password())).orElseThrow();
+        return repository.findUserByEmailAndPassword(userLoginDto.email(),
+                encoder.encode(userLoginDto.password())).orElseThrow(() -> new AuthenticationFailedException("Email or password is incorrect!"));
     }
 }
