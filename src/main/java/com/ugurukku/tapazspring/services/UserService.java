@@ -76,7 +76,14 @@ public class UserService {
     }
 
     public User authenticate(UserLoginDto userLoginDto) {
-        return repository.findUserByEmailAndPassword(userLoginDto.email(),
-                encoder.encode(userLoginDto.password())).orElseThrow(() -> new AuthenticationFailedException("Email or password is incorrect!"));
+        User user = getUserByEmail(userLoginDto.email());
+
+        System.out.println(encoder.encode(userLoginDto.password()));
+        System.out.println(user.getPassword());
+
+        if (!user.getPassword().equals(encoder.encode(userLoginDto.password()))){
+            throw  new AuthenticationFailedException("Email or password is incorrect");
+        }
+        return user;
     }
 }
