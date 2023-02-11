@@ -36,11 +36,6 @@ public class UserController {
         return ResponseEntity.ok(service.getUserById(id));
     }
 
-    @PostMapping("/bye")
-    public ResponseEntity<User> getUserByEmailAndPassword(@RequestBody UserLoginDto userLoginDto){
-        return ResponseEntity.ok(service.authenticate(userLoginDto));
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable("id") String id, @RequestBody UpdateUserRequest updateUserRequest){
         service.updateUser(id,updateUserRequest);
