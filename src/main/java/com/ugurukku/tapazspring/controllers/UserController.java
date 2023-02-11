@@ -36,7 +36,7 @@ public class UserController {
         return ResponseEntity.ok(service.getUserById(id));
     }
 
-    @GetMapping("/bye")
+    @PostMapping("/bye")
     public ResponseEntity<User> getUserByEmailAndPassword(@RequestBody UserLoginDto userLoginDto){
         return ResponseEntity.ok(service.authenticate(userLoginDto));
     }
