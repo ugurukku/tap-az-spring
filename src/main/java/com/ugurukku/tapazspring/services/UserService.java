@@ -78,8 +78,6 @@ public class UserService {
 
         User user = getUserByEmail(userLoginDto.email());
 
-        System.out.println(encoder.matches(userLoginDto.password(),user.getPassword()));
-
         if (!(encoder.matches(userLoginDto.password(), user.getPassword()))){
             throw  new AuthenticationFailedException("Email or password is incorrect");
         }
