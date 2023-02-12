@@ -79,7 +79,7 @@ public class UserService {
         User user = getUserByEmail(userLoginDto.email());
 
         if (!(encoder.matches(userLoginDto.password(), user.getPassword()))){
-            throw  new AuthenticationFailedException("Email or password is incorrect");
+            throw  new AuthenticationFailedException("E poçt və ya şifrə yanlışdır!");
         }
         return user;
     }
