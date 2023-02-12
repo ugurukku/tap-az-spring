@@ -1,6 +1,7 @@
 package com.ugurukku.tapazspring.services;
 
 import com.ugurukku.tapazspring.entities.ImageData;
+import com.ugurukku.tapazspring.exceptions.images.ImageNotFoundException;
 import com.ugurukku.tapazspring.repositories.ImageDataRepository;
 import com.ugurukku.tapazspring.utils.ImageUtil;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,9 @@ public class ImageDataService {
     @Transactional
     public byte[] getImage(Long id) {
         Optional<ImageData> dbImage = imageDataRepository.findImageDataByProductId(id);
-        return ImageUtil.decompressImage(dbImage.get().getImageData());
+        return ImageUtil.decompressImage(dbImage
+                .orElseThrow(() -> new ImageNotFoundException("Image not found for id : " + id))
+                .getImageData());
     }
 
 }

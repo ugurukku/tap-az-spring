@@ -1,8 +1,8 @@
 package com.ugurukku.tapazspring.controllers;
 
-import com.ugurukku.tapazspring.dto.user.CreateUserRequest;
 import com.ugurukku.tapazspring.dto.user.UpdateUserRequest;
 import com.ugurukku.tapazspring.dto.user.UserDto;
+import com.ugurukku.tapazspring.dto.user.UserLoginDto;
 import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService service;
@@ -34,13 +34,6 @@ public class UserController {
     @GetMapping("/id")
     public ResponseEntity<UserDto> getUser(@RequestParam(name = "id") String id) {
         return ResponseEntity.ok(service.getUserById(id));
-    }
-
-    @PostMapping
-    public ResponseEntity<UserDto> addUser(@RequestBody CreateUserRequest userRequest) {
-        return ResponseEntity
-                .ok(service
-                        .addUser(userRequest));
     }
 
     @PutMapping("/{id}")

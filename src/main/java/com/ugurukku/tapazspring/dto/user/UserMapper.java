@@ -7,7 +7,6 @@ import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 @Mapper(componentModel = "spring",injectionStrategy = InjectionStrategy.FIELD)

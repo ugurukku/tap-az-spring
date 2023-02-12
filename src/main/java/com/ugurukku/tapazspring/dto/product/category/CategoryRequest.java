@@ -1,4 +1,4 @@
-package com.ugurukku.tapazspring.dto.product;
+package com.ugurukku.tapazspring.dto.product.category;
 
 public record CategoryRequest(Long id) {
     public CategoryRequest() {

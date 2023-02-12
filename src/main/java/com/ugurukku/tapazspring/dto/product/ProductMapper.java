@@ -1,5 +1,7 @@
 package com.ugurukku.tapazspring.dto.product;
 
+import com.ugurukku.tapazspring.dto.product.category.CategoryDto;
+import com.ugurukku.tapazspring.dto.product.city.CityDto;
 import com.ugurukku.tapazspring.entities.Category;
 import com.ugurukku.tapazspring.entities.City;
 import com.ugurukku.tapazspring.entities.Product;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Component;
 public interface ProductMapper {
 
     ProductAllResponse toProductAllResponse(Product from);
+
+    ProductResponse toProductResponse(Product from);
 
     CategoryDto ToCategoryDto(Category from);
 

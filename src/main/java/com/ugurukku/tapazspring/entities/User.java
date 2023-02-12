@@ -4,8 +4,6 @@ package com.ugurukku.tapazspring.entities;
 
 
 import org.hibernate.annotations.GenericGenerator;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,9 +28,6 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "image", unique = true, length = 100000)
-    private String imageLink;
-
     public User() {
     }
 
@@ -40,6 +35,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.username = username;
+
     }
 
     public String getId(){return id;}
@@ -48,13 +44,6 @@ public class User {
         this.id = id;
     }
 
-    public String getImageLink() {
-        return imageLink;
-    }
-
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
-    }
 
     public String getUsername(){return username;}
 

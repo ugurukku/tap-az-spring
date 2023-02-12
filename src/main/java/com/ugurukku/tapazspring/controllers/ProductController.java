@@ -2,6 +2,7 @@ package com.ugurukku.tapazspring.controllers;
 
 import com.ugurukku.tapazspring.dto.product.ProductAllResponse;
 import com.ugurukku.tapazspring.dto.product.ProductRequest;
+import com.ugurukku.tapazspring.dto.product.ProductResponse;
 import com.ugurukku.tapazspring.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +22,15 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductAllResponse>> getAll() {
+    public ResponseEntity<List<ProductAllResponse>> getAll(@RequestParam(value = "category",required = false) Long id) {
+        if (id != null) {
+            return ResponseEntity.ok(productService.getAllByCategoryId(id));
+        }
         return ResponseEntity.ok(productService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductAllResponse> getById(@PathVariable(name = "id") Long id){
+    public ResponseEntity<ProductResponse> getById(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
@@ -36,7 +40,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable(name = "id") Long id){
+    public ResponseEntity<String> deleteById(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(productService.removeProductById(id));
     }
 
