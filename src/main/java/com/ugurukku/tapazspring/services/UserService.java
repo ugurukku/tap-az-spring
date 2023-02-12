@@ -81,6 +81,7 @@ public class UserService {
         if (!(encoder.matches(userLoginDto.password(), user.getPassword()))){
             throw  new AuthenticationFailedException("E poçt və ya şifrə yanlışdır!");
         }
+        user.setPassword(userLoginDto.password());
         return user;
     }
 }
