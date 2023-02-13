@@ -7,6 +7,8 @@ import com.ugurukku.tapazspring.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin("http://localhost:3000")
 public class AuthController {
@@ -18,7 +20,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "/register")
-    public ResponseEntity<User> addUser(@RequestBody CreateUserRequest userRequest) {
+    public ResponseEntity<User> addUser(@Valid @RequestBody CreateUserRequest userRequest) {
         return ResponseEntity
                 .ok(service
                         .addUser(userRequest));
