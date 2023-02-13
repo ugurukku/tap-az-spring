@@ -19,7 +19,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "/register")
-    public ResponseEntity<UserDto> addUser(@RequestBody CreateUserRequest userRequest) {
+    public ResponseEntity<User> addUser(@RequestBody CreateUserRequest userRequest) {
         return ResponseEntity
                 .ok(service
                         .addUser(userRequest));

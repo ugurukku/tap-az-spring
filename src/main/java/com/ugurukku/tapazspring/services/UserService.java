@@ -42,7 +42,7 @@ public class UserService {
         return repository.count();
     }
 
-    public UserDto addUser(CreateUserRequest userRequest) {
+    public User addUser(CreateUserRequest userRequest) {
 
         if (userExistsByEmail(userRequest.email()))
             throw new UserAlreadyExistsException(String.format("Email: %s is already taken!", userRequest.email()));
@@ -51,7 +51,7 @@ public class UserService {
         user.setPassword(encoder.encode(user.getPassword()));
 
 
-        return userMapper.toUserDto(repository.save(user));
+
     }
 
 
