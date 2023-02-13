@@ -1,7 +1,6 @@
 package com.ugurukku.tapazspring.controllers;
 
 import com.ugurukku.tapazspring.dto.user.CreateUserRequest;
-import com.ugurukku.tapazspring.dto.user.UserDto;
 import com.ugurukku.tapazspring.dto.user.UserLoginDto;
 import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.services.UserService;

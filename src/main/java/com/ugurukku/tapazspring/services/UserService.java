@@ -49,9 +49,9 @@ public class UserService {
 
         User user = userMapper.toUser(userRequest);
         user.setPassword(encoder.encode(user.getPassword()));
-
-
-
+        User savedUser = repository.save(user);
+        savedUser.setPassword(userRequest.password());
+        return savedUser;
     }
 
 
@@ -78,8 +78,8 @@ public class UserService {
 
         User user = getUserByEmail(userLoginDto.email());
 
-        if (!(encoder.matches(userLoginDto.password(), user.getPassword()))){
-            throw  new AuthenticationFailedException("E poçt və ya şifrə yanlışdır!");
+        if (!(encoder.matches(userLoginDto.password(), user.getPassword()))) {
+            throw new AuthenticationFailedException("E poçt və ya şifrə yanlışdır!");
         }
         user.setPassword(userLoginDto.password());
         return user;
