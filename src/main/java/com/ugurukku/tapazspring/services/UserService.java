@@ -45,11 +45,12 @@ public class UserService {
     public User addUser(CreateUserRequest userRequest) {
 
         if (userExistsByEmail(userRequest.email()))
-            throw new UserAlreadyExistsException(String.format("Email: %s is already taken!", userRequest.email()));
+            throw new UserAlreadyExistsException(String.format("Bu e poçt ünvanı götürülmüşdür!", userRequest.email()));
 
         User user = userMapper.toUser(userRequest);
         user.setPassword(encoder.encode(user.getPassword()));
         User savedUser = repository.save(user);
+
         savedUser.setPassword(userRequest.password());
         return savedUser;
     }
