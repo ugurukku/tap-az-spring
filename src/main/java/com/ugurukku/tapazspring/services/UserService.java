@@ -142,6 +142,7 @@ public class UserService {
         user.setEnabled(true);
         user.setVerificationCode("");
 
+        repository.save(user);
         return true;
     }
 }
