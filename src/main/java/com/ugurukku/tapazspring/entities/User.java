@@ -32,6 +32,7 @@ public class User {
     @JsonIgnore
     private Boolean enabled;
 
+    @JsonIgnore
     private String verificationCode;
 
     public String getVerificationCode() {
