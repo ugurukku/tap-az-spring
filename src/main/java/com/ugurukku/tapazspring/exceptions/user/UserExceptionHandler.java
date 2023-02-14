@@ -28,6 +28,10 @@ public class UserExceptionHandler  extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> AuthenticationFailedExceptionHandler(AuthenticationFailedException exception){
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.UNAUTHORIZED);
     }
+    @ExceptionHandler(IncorrectVerificationException.class)
+    public ResponseEntity<?> IncorrectVerificationExceptionHandler(IncorrectVerificationException exception){
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+    }
 
 
 }
