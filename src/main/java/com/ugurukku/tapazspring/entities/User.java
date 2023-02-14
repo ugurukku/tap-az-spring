@@ -3,6 +3,7 @@ package com.ugurukku.tapazspring.entities;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +29,18 @@ public class User {
     @Column(name = "username",nullable = false)
     private String username;
 
+    @JsonIgnore
     private Boolean enabled;
+
+    private String verificationCode;
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
 
     public Boolean getEnabled() {
         return enabled;

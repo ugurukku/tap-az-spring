@@ -7,6 +7,7 @@ import com.ugurukku.tapazspring.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -20,10 +21,12 @@ public class AuthController {
     }
 
     @PostMapping(path = "/register")
-    public ResponseEntity<User> addUser(@Valid @RequestBody CreateUserRequest userRequest) {
-        return ResponseEntity
-                .ok(service
-                        .addUser(userRequest));
+    public void addUser(@Valid @RequestBody CreateUserRequest userRequest, HttpServletRequest request) {
+        try{service
+                .addUser(userRequest, getSiteURL(request));}
+        catch (Exception e){
+            throw new RuntimeException("Something went wrong!");
+        }
     }
 
     @PostMapping(path = "/login")
@@ -31,6 +34,11 @@ public class AuthController {
         return ResponseEntity
                 .ok(service
                         .authenticate(userLoginDto));
+    }
+
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
     }
 
 }

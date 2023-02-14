@@ -6,9 +6,15 @@ import com.ugurukku.tapazspring.exceptions.user.AuthenticationFailedException;
 import com.ugurukku.tapazspring.exceptions.user.UserAlreadyExistsException;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
 import com.ugurukku.tapazspring.repositories.UserRepository;
+import net.bytebuddy.utility.RandomString;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Service
@@ -18,11 +24,14 @@ public class UserService {
 
     private final UserMapper userMapper;
 
+    private final JavaMailSender mailSender;
+
     private final PasswordEncoder encoder;
 
-    public UserService(UserRepository repository, UserMapper userMapper, PasswordEncoder encoder) {
+    public UserService(UserRepository repository, UserMapper userMapper, JavaMailSender mailSender, PasswordEncoder encoder) {
         this.repository = repository;
         this.userMapper = userMapper;
+        this.mailSender = mailSender;
         this.encoder = encoder;
     }
 
@@ -42,19 +51,55 @@ public class UserService {
         return repository.count();
     }
 
-    public User addUser(CreateUserRequest userRequest) {
+    public void addUser(CreateUserRequest userRequest,String siteUrl) throws MessagingException, UnsupportedEncodingException {
 
         if (userExistsByEmail(userRequest.email()))
-            throw new UserAlreadyExistsException(String.format("Bu e poçt ünvanı götürülmüşdür!", userRequest.email()));
+            throw new UserAlreadyExistsException(String.format("e poçt ünvanı(%s) götürülmüşdür!", userRequest.email()));
 
         User user = userMapper.toUser(userRequest);
-        user.setPassword(encoder.encode(user.getPassword()));
-        User savedUser = repository.save(user);
+        user.setPassword(encoder.encode(userRequest.password()));
 
+        String randomCode = RandomString.make(64);
+        user.setVerificationCode(randomCode);
+        user.setEnabled(false);
+
+        User savedUser = repository.save(user);
         savedUser.setPassword(userRequest.password());
-        return savedUser;
+
+
+        sendVerificationEmail(user, siteUrl);
+
     }
 
+    private void sendVerificationEmail(User user, String siteURL)
+            throws MessagingException, UnsupportedEncodingException {
+        String toAddress = user.getEmail();
+        String fromAddress = "Your email address";
+        String senderName = "Your company name";
+        String subject = "Please verify your registration";
+        String content = "Dear [[name]],<br>"
+                + "Please click the link below to verify your registration:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "Thank you,<br>"
+                + "Your company name.";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", user.getUsername());
+        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
+
+        content = content.replace("[[URL]]", verifyURL);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+
+    }
 
     public void updateUser(String id, UpdateUserRequest userRequest) {
         User user = findUserById(id);
