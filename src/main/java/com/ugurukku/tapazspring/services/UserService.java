@@ -136,4 +136,12 @@ public class UserService {
         user.setPassword(userLoginDto.password());
         return user;
     }
+
+    public Boolean verify(String code) {
+        User user = repository.findUserByVerificationCode(code).orElseThrow(() -> new IncorrectVerificationException("Təhlükəsizlik kodu yanlışdır!"));
+        user.setEnabled(true);
+        user.setVerificationCode("");
+
+        return true;
+    }
 }

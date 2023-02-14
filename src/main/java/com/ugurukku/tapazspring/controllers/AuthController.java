@@ -26,10 +26,10 @@ public class AuthController {
     public void addUser(@Valid @RequestBody CreateUserRequest userRequest) throws MessagingException, UnsupportedEncodingException {
   service.addUser(userRequest);}
 
-//    @GetMapping(path = "/verify")
-//    public User verify(@RequestParam("code") String code){
-//        return service.verify(code);
-//    }
+    @GetMapping(path = "/verify")
+    public Boolean verify(@RequestParam("code") String code){
+        return service.verify(code);
+    }
 
     @PostMapping(path = "/login")
     public ResponseEntity<User> login(@RequestBody UserLoginDto userLoginDto) {
