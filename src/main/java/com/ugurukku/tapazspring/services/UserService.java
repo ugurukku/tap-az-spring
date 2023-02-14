@@ -7,6 +7,7 @@ import com.ugurukku.tapazspring.exceptions.user.UserAlreadyExistsException;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
 import com.ugurukku.tapazspring.repositories.UserRepository;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -27,6 +29,9 @@ public class UserService {
     private final JavaMailSender mailSender;
 
     private final PasswordEncoder encoder;
+
+    @Value("${spring.mail.username}")
+    String fromAddress;
 
     public UserService(UserRepository repository, UserMapper userMapper, JavaMailSender mailSender, PasswordEncoder encoder) {
         this.repository = repository;
@@ -74,8 +79,7 @@ public class UserService {
     private void sendVerificationEmail(User user, String siteURL)
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
-        String fromAddress = "Your email address";
-        String senderName = "Your company name";
+        String senderName = "UKKU AZ";
         String subject = "Please verify your registration";
         String content = "Dear [[name]],<br>"
                 + "Please click the link below to verify your registration:<br>"

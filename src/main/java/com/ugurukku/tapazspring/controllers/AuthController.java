@@ -7,8 +7,10 @@ import com.ugurukku.tapazspring.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -21,13 +23,10 @@ public class AuthController {
     }
 
     @PostMapping(path = "/register")
-    public void addUser(@Valid @RequestBody CreateUserRequest userRequest, HttpServletRequest request) {
-        try{service
+    public void addUser(@Valid @RequestBody CreateUserRequest userRequest, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+  service
                 .addUser(userRequest, getSiteURL(request));}
-        catch (Exception e){
-            throw new RuntimeException("Something went wrong!");
-        }
-    }
+
 
     @PostMapping(path = "/login")
     public ResponseEntity<User> login(@RequestBody UserLoginDto userLoginDto) {
