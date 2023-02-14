@@ -52,14 +52,18 @@ public class ProductService {
        return productRepository.save(new Product(
                 productRequest.title(),
                 productRequest.price(), productRequest.description(),
+                productRequest.userEmail(),
                 new Category(productRequest.category().id()),
-                new City(productRequest.city().id()),
-                "random"
+                new City(productRequest.city().id())
         )).getId();
 
     }
 
     public void saveAll(List<Product> products) {
         productRepository.saveAll(products);
+    }
+
+    public List<ProductAllResponse> getAllByUserEmail(String userEmail) {
+        return productRepository.findAllByUserEmail(userEmail).stream().map(productMapper::toProductAllResponse).toList();
     }
 }

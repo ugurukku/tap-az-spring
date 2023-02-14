@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 public record ProductRequest(String title,
                              BigDecimal price,
                              String description,
+
+                             String userEmail,
                              CityRequest city,
                              CategoryRequest category) {
 

@@ -20,11 +20,11 @@ public class Product {
     @Column(name = "description", length = 2000)
     private String description;
 
-    @Column(name = "image_link")
-    private String image;
-
     @Column(name = "added_date")
-    private LocalDate date;//
+    private LocalDate date;
+
+    @Column(name = "user_email")
+    private String userEmail;
 
     @ManyToOne
     @JoinColumn(name = "city_id")
@@ -34,12 +34,12 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Product(String title, BigDecimal price, String description, Category category, City city,String image) {
+    public Product(String title, BigDecimal price, String description,String userEmail, Category category, City city) {
         this.title = title;
         this.price = price;
         this.description = description;
+        this.userEmail = userEmail;
         this.category = category;
-        this.image = image;
         this.city = city;
         this.date = LocalDate.now();
     }
@@ -64,13 +64,15 @@ public class Product {
         return description;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
     public Category getCategory() {
         return category;
     }
 
-    public String getImage() {
-        return image;
-    }
+
 
     public City getCity() {
         return city;
@@ -88,7 +90,6 @@ public class Product {
                 ", price=" + price +
                 ", description='" + description + '\'' +
                 ", category='" + category + '\'' +
-                ", image='" + image + '\'' +
                 '}';
     }
 }
