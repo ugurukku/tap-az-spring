@@ -2,6 +2,7 @@ package com.ugurukku.tapazspring.services;
 
 import com.ugurukku.tapazspring.dto.user.*;
 import com.ugurukku.tapazspring.entities.User;
+import com.ugurukku.tapazspring.exceptions.user.IncorrectVerificationException;
 import com.ugurukku.tapazspring.exceptions.user.AuthenticationFailedException;
 import com.ugurukku.tapazspring.exceptions.user.UserAlreadyExistsException;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class UserService {
         return repository.count();
     }
 
-    public void addUser(CreateUserRequest userRequest,String siteUrl) throws MessagingException, UnsupportedEncodingException {
+    public void addUser(CreateUserRequest userRequest) throws MessagingException, UnsupportedEncodingException {
 
         if (userExistsByEmail(userRequest.email()))
             throw new UserAlreadyExistsException(String.format("e poçt ünvanı(%s) götürülmüşdür!", userRequest.email()));
@@ -72,20 +72,20 @@ public class UserService {
         savedUser.setPassword(userRequest.password());
 
 
-        sendVerificationEmail(user, siteUrl);
+        sendVerificationEmail(user);
 
     }
 
-    private void sendVerificationEmail(User user, String siteURL)
+    private void sendVerificationEmail(User user)
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
         String senderName = "UKKU AZ";
         String subject = "Please verify your registration";
-        String content = "Dear [[name]],<br>"
-                + "Please click the link below to verify your registration:<br>"
-                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
-                + "Thank you,<br>"
-                + "Your company name.";
+        String content = "Əziz istifadəçimiz [[name]],<br>"
+                + "Təhlükəsizlik kodunuz:<br>"
+                + "<h3>[[URL]]</h3>"
+                + "Təşşəkür edirik,<br>"
+                + senderName;
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -95,15 +95,17 @@ public class UserService {
         helper.setSubject(subject);
 
         content = content.replace("[[name]]", user.getUsername());
-        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
+        String verificationCode = user.getVerificationCode();
 
-        content = content.replace("[[URL]]", verifyURL);
+        content = content.replace("[[URL]]", verificationCode);
 
         helper.setText(content, true);
 
         mailSender.send(message);
 
     }
+
+
 
     public void updateUser(String id, UpdateUserRequest userRequest) {
         User user = findUserById(id);

@@ -23,10 +23,13 @@ public class AuthController {
     }
 
     @PostMapping(path = "/register")
-    public void addUser(@Valid @RequestBody CreateUserRequest userRequest, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-  service
-                .addUser(userRequest, getSiteURL(request));}
+    public void addUser(@Valid @RequestBody CreateUserRequest userRequest) throws MessagingException, UnsupportedEncodingException {
+  service.addUser(userRequest);}
 
+//    @GetMapping(path = "/verify")
+//    public User verify(@RequestParam("code") String code){
+//        return service.verify(code);
+//    }
 
     @PostMapping(path = "/login")
     public ResponseEntity<User> login(@RequestBody UserLoginDto userLoginDto) {
@@ -35,9 +38,5 @@ public class AuthController {
                         .authenticate(userLoginDto));
     }
 
-    private String getSiteURL(HttpServletRequest request) {
-        String siteURL = request.getRequestURL().toString();
-        return siteURL.replace(request.getServletPath(), "");
-    }
 
 }
