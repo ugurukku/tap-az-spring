@@ -18,11 +18,14 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final ImageDataService imageDataService;
+
 
     private final ProductMapper productMapper;
 
-    public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductService(ProductRepository productRepository, ImageDataService imageDataService, ProductMapper productMapper) {
         this.productRepository = productRepository;
+        this.imageDataService = imageDataService;
         this.productMapper = productMapper;
     }
 
@@ -44,6 +47,8 @@ public class ProductService {
 
         String title = getProductById(id).title();
         productRepository.deleteById(id);
+        imageDataService.removeImageByProductId(id);
+
 
         return title + " successfully deleted.";
     }
