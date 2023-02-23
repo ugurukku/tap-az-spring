@@ -18,11 +18,14 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final ImageDataService imageDataService;
+
 
     private final ProductMapper productMapper;
 
-    public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductService(ProductRepository productRepository, ImageDataService imageDataService, ProductMapper productMapper) {
         this.productRepository = productRepository;
+        this.imageDataService = imageDataService;
         this.productMapper = productMapper;
     }
 
@@ -44,6 +47,8 @@ public class ProductService {
 
         String title = getProductById(id).title();
         productRepository.deleteById(id);
+        imageDataService.removeImageByProductId(id);
+
 
         return title + " successfully deleted.";
     }
@@ -52,14 +57,27 @@ public class ProductService {
        return productRepository.save(new Product(
                 productRequest.title(),
                 productRequest.price(), productRequest.description(),
+                productRequest.userEmail(),
                 new Category(productRequest.category().id()),
-                new City(productRequest.city().id()),
-                "random"
+                new City(productRequest.city().id())
         )).getId();
 
     }
 
     public void saveAll(List<Product> products) {
         productRepository.saveAll(products);
+    }
+
+
+    public List<ProductAllResponse>  getAllByUserId(String userId) {
+        return productRepository
+                .findAllByUserId(userId)
+                .stream()
+                .map(productMapper::toProductAllResponse)
+                .toList();
+    }
+
+    public void updateProduct(Product product) {
+        productRepository.save(product);
     }
 }

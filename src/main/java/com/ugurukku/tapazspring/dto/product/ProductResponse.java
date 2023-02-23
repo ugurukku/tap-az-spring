@@ -14,6 +14,8 @@ public record ProductResponse(String title,
 
                               LocalDate date,
 
+                              String userId,
+
                               CityDto city,
 
                               CategoryDto category) {

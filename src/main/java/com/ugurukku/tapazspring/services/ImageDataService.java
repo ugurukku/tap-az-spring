@@ -49,4 +49,8 @@ public class ImageDataService {
                 .getImageData());
     }
 
+    public void removeImageByProductId(Long id){
+        imageDataRepository.deleteImageDataByProductId(id);
+    }
+
 }

@@ -2,7 +2,6 @@ package com.ugurukku.tapazspring.security;
 
 import com.ugurukku.tapazspring.entities.User;
 import com.ugurukku.tapazspring.exceptions.user.UserNotFoundException;
-import com.ugurukku.tapazspring.repositories.UserRepository;
 import com.ugurukku.tapazspring.services.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

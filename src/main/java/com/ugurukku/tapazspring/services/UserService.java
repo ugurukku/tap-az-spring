@@ -132,6 +132,8 @@ public class UserService {
 
         if (!(encoder.matches(userLoginDto.password(), user.getPassword()))) {
             throw new AuthenticationFailedException("E poçt və ya şifrə yanlışdır!");
+        } else if (!user.getEnabled()) {
+            throw new AuthenticationFailedException("İstifadəçi təsdiqlənməmişdir!");
         }
         user.setPassword(userLoginDto.password());
         return user;
