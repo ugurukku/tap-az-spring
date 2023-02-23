@@ -33,7 +33,6 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getById(@PathVariable(name = "id") Long id) {
-        System.out.println("Accepted");
         return ResponseEntity.ok(productService.getProductById(id));
     }
 

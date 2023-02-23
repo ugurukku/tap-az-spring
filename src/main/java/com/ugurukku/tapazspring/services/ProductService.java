@@ -38,7 +38,6 @@ public class ProductService {
     }
 
     public ProductResponse getProductById(Long id) {
-        System.out.println(productRepository.findById(id).get());
         return productMapper.toProductResponse(productRepository
                 .findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(String.format("Product with id:%s not found!", id))));
