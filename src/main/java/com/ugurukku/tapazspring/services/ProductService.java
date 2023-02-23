@@ -68,7 +68,8 @@ public class ProductService {
         productRepository.saveAll(products);
     }
 
-    public List<ProductAllResponse> getAllByUserEmail(String userEmail) {
-        return productRepository.findAllByUserEmail(userEmail).stream().map(productMapper::toProductAllResponse).toList();
+
+    public List<ProductAllResponse>  getAllByUserId(String userId) {
+        return productRepository.findAllByUserId(userId);
     }
 }

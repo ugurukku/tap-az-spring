@@ -22,11 +22,11 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductAllResponse>> getAll(@RequestParam(value = "category",required = false) Long id,@RequestParam(value = "user",required = false) String userEmail) {
+    public ResponseEntity<List<ProductAllResponse>> getAll(@RequestParam(value = "category",required = false) Long id,@RequestParam(value = "user",required = false) String userId) {
         if (id != null) {
             return ResponseEntity.ok(productService.getAllByCategoryId(id));
-        }else if (userEmail!=null){
-            return ResponseEntity.ok(productService.getAllByUserEmail(userEmail));
+        }else if (userId!=null){
+            return ResponseEntity.ok(productService.getAllByUserId(userId));
         }
         return ResponseEntity.ok(productService.getAll());
     }

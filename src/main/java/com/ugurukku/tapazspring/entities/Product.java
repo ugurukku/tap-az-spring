@@ -23,8 +23,8 @@ public class Product {
     @Column(name = "added_date")
     private LocalDate date;
 
-    @Column(name = "user_email")
-    private String userEmail;
+    @Column(name = "user_id")
+    private String userId;
 
     @ManyToOne
     @JoinColumn(name = "city_id")
@@ -34,11 +34,11 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Product(String title, BigDecimal price, String description,String userEmail, Category category, City city) {
+    public Product(String title, BigDecimal price, String description, String userId, Category category, City city) {
         this.title = title;
         this.price = price;
         this.description = description;
-        this.userEmail = userEmail;
+        this.userId = userId;
         this.category = category;
         this.city = city;
         this.date = LocalDate.now();
@@ -64,8 +64,8 @@ public class Product {
         return description;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getUserId() {
+        return userId;
     }
 
     public Category getCategory() {
