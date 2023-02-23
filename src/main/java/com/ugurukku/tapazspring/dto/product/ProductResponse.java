@@ -14,7 +14,7 @@ public record ProductResponse(String title,
 
                               LocalDate date,
 
-                              String userEmail,
+                              String userId,
 
                               CityDto city,
 

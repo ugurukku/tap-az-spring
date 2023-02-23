@@ -70,6 +70,10 @@ public class ProductService {
 
 
     public List<ProductAllResponse>  getAllByUserId(String userId) {
-        return productRepository.findAllByUserId(userId);
+        return productRepository
+                .findAllByUserId(userId)
+                .stream()
+                .map(productMapper::toProductAllResponse)
+                .toList();
     }
 }
