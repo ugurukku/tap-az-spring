@@ -76,4 +76,8 @@ public class ProductService {
                 .map(productMapper::toProductAllResponse)
                 .toList();
     }
+
+    public void updateProduct(Product product) {
+        productRepository.save(product);
+    }
 }
